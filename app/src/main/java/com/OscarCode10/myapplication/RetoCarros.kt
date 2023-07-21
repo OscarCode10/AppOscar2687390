@@ -12,17 +12,19 @@ fun main() {
                 var car:String=readLine().toString()
                 if (cars.contains(car)==true){
                     println("Lo siento el carro ya existe")
+                }else{
+                    cars.add(car)
+                    println("Se registro el carro")
                 }
-                cars.add(car)
-                println("Se registro el carro")
             }
             2->{
                 println("La lista de carros es: ")
                 if (cars==emptyList<String>()){
-                    println("no hay carros")
+                    println("no hay carrots")
                 }
                 for ((index,i) in cars.withIndex()){
-                    println("El carro $index es $i")
+                    var posi:Int=index+1
+                    println("El carro $posi es $i")
                 }
             }
             3->{
@@ -31,8 +33,9 @@ fun main() {
                 if (cars.contains(car)==true){
                     var posi:Int=cars.indexOf(car)
                     println("El carro fue encontrado, es $posi "+cars[posi])
+                }else{
+                    println("El carro no existe")
                 }
-                println("El carro no existe")
             }
             4->{
                 println("Ingresa la posición que quieres modificar")
@@ -43,8 +46,9 @@ fun main() {
                     var newCar:String=readLine().toString()
                     car=newCar
                     println("Se modifico")
+                } else{
+                    println("La posición no existe")
                 }
-                println("La posición no existe")
             }
             5->{
                 println("Ingresa la posición que quieres eliminar")
@@ -53,8 +57,9 @@ fun main() {
                     var car:String=cars[posi]
                     println("El carro $car se eliminó")
                     cars.removeAt(posi)
+                }else{
+                    println("La posición no existe")
                 }
-                println("La posición no existe")
             }
             6->{
                 println("Seguro que quieres eliminarla? si o no")
@@ -62,11 +67,12 @@ fun main() {
                 if (deci=="si"){
                     cars.removeAll(cars)
                     println("Eliminada")
+                }else{
+                    println("Que susto, no se eliminó nada")
                 }
-                println("Que susto, no se eliminó nada")
             }
         }
-        println("Quiere seguir usando el programa")
+        println("Quiere seguir usando el programa? si o no")
         op=readLine().toString()
     }while (op=="si")
 }
