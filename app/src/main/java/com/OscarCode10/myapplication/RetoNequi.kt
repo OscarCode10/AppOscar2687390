@@ -1,8 +1,5 @@
 package com.OscarCode10.myapplication
 
-import android.text.BoringLayout
-import java.sql.Struct
-
 class Nequi {
 }
 
@@ -10,19 +7,21 @@ fun login():Boolean {
     var op:String="si"
     var veces:Int=0
     var estado:Boolean
+    var intentos:Int=3
+    println("Si usuario y contraseña son correctos permitir el acceso")
     do{
         veces+=1
+        intentos-=1
         println("Aclaración, tienes maxímo tres intentos")
         println("Ingresa el número de telefono")
         var numTell:Long= readLine()!!.toLong()
         println("Ingresa el pin de 4 dígitos")
         var pin:Int= readLine()!!.toInt()
         if (numTell==3223496849 && pin==2005){
-            println("Si usuario y contraseña son correctos permitir el acceso")
             estado=true
             break
         }else{
-            println("¡Upps! Parece que tus datos de acceso no son correctos, Tienes tres intentos más")
+            println("¡Upps! Parece que tus datos de acceso no son correctos, Tienes $intentos intentos más")
             estado=false
         }
         if (veces>=3){
@@ -37,14 +36,21 @@ fun login():Boolean {
 }
 fun saca(saldo:Int?):Int{
     if (saldo!!<2000) {
-        println("No te alcanza para retirar")
+        println("No te alcanza para retirar, tienes")
         return 1
-    }else{
+    } else{
         println("Puedes elegir entre:\n" +
                 "1 cajero\n" +
                 "2 punto físico")
         var deci:Int= readLine()!!.toInt()
-        return (100000..999999).random()
+        println("Cuánto deseas retirar?")
+        var reti:Int= readLine()!!.toInt()
+        if (reti>saldo!!) {
+            println("Tu saldo es menor de lo que quieres retirar")
+            return 2
+        }else {
+            return saldo-reti
+        }
     }
 }
 fun envia(saldo: Int?):Int{
@@ -109,16 +115,20 @@ fun main(){
                     "2 Envía dinero\n" +
                     "3 Recarga dinero\n" +
                     "4 Recarga de celular\n" +
-                    "5 \n" +
-                    "4 Salir del app")
+                    "5 Pagar Factura\n" +
+                    "6 Salir del app")
             var deci:Int= readLine()!!.toInt()
             when (deci){
                 1->{
                     var result=saca(saldo)
                     if (result==1){
-                        print("Debes recargar")
-                    }else{
-                        println(result)
+                        print("Debes tener más de 2000 en saldo")
+                    }else if(result==2){
+                        println("Ingresa un valor que este dentro de tu saldo")
+                    } else{
+                        var cod:Int=(100000..999999).random()
+                        println("Código para retirar $cod")
+                        saldo=result
                     }
                 }
                 2->{
@@ -151,7 +161,7 @@ fun main(){
                     if (pagarfactura==1){
                         println("Debes tener más dinero")
                     }else{
-                        pagarfactura=saldo
+                        saldo=pagarfactura
                     }
                 }
                 6 ->{
