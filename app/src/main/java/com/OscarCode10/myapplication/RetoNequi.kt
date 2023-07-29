@@ -128,7 +128,14 @@ fun main(){
                     } else{
                         var cod:Int=(100000..999999).random()
                         println("Código para retirar $cod")
-                        saldo=result
+                        println("Confirma el codigo con el que retirarás")
+                        var confi:Int= readLine()!!.toInt()
+                        if (cod==confi){
+                            println("Se retiro el dinero")
+                            saldo=result
+                        }else{
+                            println("El codigo es incorrecto")
+                        }
                     }
                 }
                 2->{
